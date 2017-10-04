@@ -12,7 +12,8 @@ namespace lukeLua
         {
             luke::Window * w = luanatic::convertToTypeAndCheck<luke::Window>(_state, 1);
             luke::WindowSettings * ws = luanatic::convertToTypeAndCheck<luke::WindowSettings>(_state, 2);
-            luanatic::pushValueType<stick::Error>(_state, w->open(*ws));
+            luke::Window * shared = luanatic::convertToType<luke::Window>(_state, 3);
+            luanatic::pushValueType<stick::Error>(_state, w->open(*ws, shared));
             return 1;
         }
 
