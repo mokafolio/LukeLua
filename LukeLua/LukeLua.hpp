@@ -28,7 +28,6 @@ namespace lukeLua
             luanatic::LuaValue luaCallback(_state, 2);
             w->addEventCallback([luaCallback, _state](const EventT & _e)
             {
-                printf("CALLED IT BRO\n");
                 //01. push callback function
                 luaCallback.push();
                 //02. push event
@@ -408,6 +407,7 @@ namespace lukeLua
         addBase<Event>();
         namespaceTable.registerClass(windowRestoreEventCW);
 
+        //register free functions
         namespaceTable.registerFunction("pollEvents", LUANATIC_FUNCTION(&pollEvents));
     }
 }
