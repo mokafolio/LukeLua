@@ -3,7 +3,7 @@ project (LukeLua)
 set(CMAKE_CXX_FLAGS "-std=c++11 -fno-exceptions")
 
 find_package(Lua 5.2 REQUIRED)
-include_directories (${CMAKE_CURRENT_SOURCE_DIR} /usr/local/include  ${LUA_INCLUDE_DIR})
+include_directories (${CMAKE_CURRENT_SOURCE_DIR} /usr/local/include  {LUA_INCLUDE_DIR})
 link_directories(/usr/local/lib)
 
 set (LUKELUADEPS Stick pthread ${LUA_LIBRARIES})

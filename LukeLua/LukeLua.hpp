@@ -146,7 +146,7 @@ namespace lukeLua
         keyCodeTable["Down"].set(KeyCode::Down);
         keyCodeTable["Up"].set(KeyCode::Up);
         keyCodeTable["Help"].set(KeyCode::Help);
-        keyCodeTable["ForwardDelete"].set(KeyCode::ForwardDelete);
+        // keyCodeTable["ForwardDelete"].set(KeyCode::ForwardDelete);
         keyCodeTable["Mute"].set(KeyCode::Mute);
         keyCodeTable["VolumeUp"].set(KeyCode::VolumeUp);
         keyCodeTable["VolumeDown"].set(KeyCode::VolumeDown);
@@ -209,6 +209,10 @@ namespace lukeLua
         mouseButtonTable["Button7"].set(MouseButton::Button7);
         mouseButtonTable["None"].set(MouseButton::None);
 
+        LuaValue fsmTable = namespaceTable.findOrCreateTable("FullScreenMode");
+        fsmTable["Borderless"].set(FullScreenMode::Borderless);
+        fsmTable["Fullsceen"].set(FullScreenMode::Fullsceen);
+
         //register MouseState
         ClassWrapper<MouseState> mouseStateCW("MouseState");
         mouseStateCW.
@@ -240,12 +244,6 @@ namespace lukeLua
         addBase<Event>().
         addBase<MouseEvent>();
         namespaceTable.registerClass(mouseMoveEventCW);
-
-        ClassWrapper<MouseDragEvent> mouseDragEventCW("MouseDragEvent");
-        mouseDragEventCW.
-        addBase<Event>().
-        addBase<MouseEvent>();
-        namespaceTable.registerClass(mouseDragEventCW);
 
         ClassWrapper<MouseDownEvent> mouseDownEventCW("MouseDownEvent");
         mouseDownEventCW.
@@ -332,8 +330,7 @@ namespace lukeLua
         addMemberFunction("maximize", LUANATIC_FUNCTION(&Window::maximize)).
         addMemberFunction("focus", LUANATIC_FUNCTION(&Window::focus)).
         addMemberFunction("enableRenderContext", LUANATIC_FUNCTION(&Window::enableRenderContext)).
-        addMemberFunction("disableRenderContext", LUANATIC_FUNCTION(&Window::disableRenderContext)).
-        addMemberFunction("enterFullscreen", LUANATIC_FUNCTION_OVERLOAD(Error(Window::*)(const Display &), &Window::enterFullscreen)).
+        addMemberFunction("enterFullscreen", LUANATIC_FUNCTION_OVERLOAD(Error(Window::*)(FullScreenMode, const Display &), &Window::enterFullscreen)).
         addMemberFunction("enterFullscreen", LUANATIC_FUNCTION_OVERLOAD(Error(Window::*)(const DisplayMode &, const Display &), &Window::enterFullscreen)).
         addMemberFunction("enterFullscreen", LUANATIC_FUNCTION_OVERLOAD(Error(Window::*)(Float32, Float32, const Display &), &Window::enterFullscreen)).
         addMemberFunction("exitFullscreen", LUANATIC_FUNCTION(&Window::exitFullscreen)).
@@ -361,7 +358,6 @@ namespace lukeLua
         addMemberFunction("addMouseMoveCallback", detail::luaEventCallback<MouseMoveEvent>).
         addMemberFunction("addMouseUpCallback", detail::luaEventCallback<MouseUpEvent>).
         addMemberFunction("addMouseDownCallback", detail::luaEventCallback<MouseDownEvent>).
-        addMemberFunction("addMouseDragCallback", detail::luaEventCallback<MouseDragEvent>).
         addMemberFunction("addKeyDownCallback", detail::luaEventCallback<KeyDownEvent>).
         addMemberFunction("addKeyUpCallback", detail::luaEventCallback<KeyUpEvent>).
         addMemberFunction("addWindowMoveCallback", detail::luaEventCallback<WindowMoveEvent>).

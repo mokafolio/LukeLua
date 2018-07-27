@@ -1,5 +1,6 @@
 local ws = WindowSettings()
 ws:setResizeable(true)
+
 local window = Window()
 
 -- window:addMouseMoveCallback(function(_e)
@@ -15,10 +16,6 @@ end)
 
 window:addMouseUpCallback(function(_e)
     print("MouseUp", _e:x(), _e:y())
-end)
-
-window:addMouseDragCallback(function(_e)
-    print("MouseDrag", _e:x(), _e:y())
 end)
 
 window:addKeyDownCallback(function(_e)
