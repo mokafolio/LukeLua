@@ -30,11 +30,9 @@ namespace lukeLua
             {
                 //01. push callback function
                 luaCallback.push();
-                //02. push event
-                luanatic::push<EventT>(_state, &_e);
-                // //03. push entity
-                // luanatic::push<brick::Entity>(_state, &_self);
-                //04. call function
+                //02. push event and keep ownership
+                luanatic::push<EventT>(_state, &_e, false);
+                //03. call function
                 lua_call(_state, 1, 0);
             });
 
