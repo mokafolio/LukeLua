@@ -1,8 +1,9 @@
-find_package(PkgConfig REQUIRED)
 find_package(OpenGL REQUIRED)
 find_package(Lua 5.2 REQUIRED)
-pkg_search_module(GLFW REQUIRED glfw3)
+find_package(SDL2 REQUIRED)
 
-include_directories (${OPENGL_INCLUDE_DIRS} ${GLFW_INCLUDE_DIRS} ${LUA_INCLUDE_DIR})
+include_directories (${OPENGL_INCLUDE_DIRS} ${SDL2_INCLUDE_DIRS} ${LUA_INCLUDE_DIR})
 add_executable (LukeLuaPlayground LukeLuaPlayground.cpp)
-target_link_libraries(LukeLuaPlayground Luke Stick ${GLFW_STATIC_LIBRARIES} ${OPENGL_LIBRARIES} ${LUA_LIBRARIES})
+set_target_properties(LukeLuaPlayground PROPERTIES COMPILE_FLAGS "-fsanitize=address")
+set_target_properties(LukeLuaPlayground PROPERTIES LINK_FLAGS "-fsanitize=address")
+target_link_libraries(LukeLuaPlayground Luke Stick ${SDL2_LIBRARIES} ${OPENGL_LIBRARIES} ${LUA_LIBRARIES})
